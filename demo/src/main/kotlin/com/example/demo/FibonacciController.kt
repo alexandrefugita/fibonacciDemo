@@ -14,7 +14,11 @@ class FibonacciController {
     // max Long value with 100% accuracy: 78
     fun fibonacci(@RequestParam(value = "n", defaultValue = "0") n: Int): FibonacciResponse {
         if (n < 0) {
-            return FibonacciResponse(counter.incrementAndGet(), FibonacciResponseStatus.ERROR, 0)
+            return FibonacciResponse(counter.incrementAndGet(), FibonacciResponseStatus.ERROR_INVALID_INPUT, 0)
+        }
+
+        if (n > 78) {
+            return FibonacciResponse(counter.incrementAndGet(), FibonacciResponseStatus.ERROR_MAXIMUM_VALUE_EXCEEDED, 0)
         }
 
         return FibonacciResponse(counter.incrementAndGet(), FibonacciResponseStatus.OK, calculateFibonacci(n))
